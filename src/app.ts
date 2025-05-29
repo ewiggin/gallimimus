@@ -5,7 +5,7 @@ export class Gallimimus {
   controllers: Record<string, unknown>[] = [];
   private routes: any[] = [];
 
-  constructor(config: any) {
+  constructor(config?: any) {
     console.clear();
     console.log("".padEnd(80, "="));
     console.log(`Building server and register controllers and routes`);
