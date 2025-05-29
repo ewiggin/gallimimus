@@ -1,4 +1,4 @@
-import "npm:reflect-metadata";
+import "npm:reflect-metadata@0.2.2";
 
 export type ClassConstructor<T = any> = new (...args: any[]) => T;
 

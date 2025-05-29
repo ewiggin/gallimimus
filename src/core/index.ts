@@ -19,6 +19,6 @@ const GLOBAL: IGlobalObject = {
   services: [],
 };
 
-export function getMetadata() {
+export function getMetadata(): IGlobalObject {
   return GLOBAL;
 }

@@ -48,53 +48,61 @@ export const Get = (url = ""): MethodDecorator => {
   };
 };
 
-export const Post = function (url: string) {
-  return function (
+/**
+ * Decorator for marking a method as a POST route.
+ * @param url The URL path for the route.
+ */
+export const Post = (url = ""): MethodDecorator => {
+  return (
     target: object,
-    propertyKey: string,
+    propertyKey: string | symbol,
     _descriptor: PropertyDescriptor,
-  ) {
+  ) => {
     getMetadata().actions.push({
       requestMethod: "POST",
       route: url,
       target: target.constructor,
-      method: propertyKey,
+      method: String(propertyKey),
     });
   };
 };
 
-export const Delete = function (url: string) {
-  return function (
+export const Delete = (url: string): MethodDecorator => {
+  return (
     target: object,
-    propertyKey: string,
+    propertyKey: string | symbol,
     _descriptor: PropertyDescriptor,
-  ) {
+  ) => {
     getMetadata().actions.push({
       requestMethod: "DELETE",
       route: url,
       target: target.constructor,
-      method: propertyKey,
+      method: String(propertyKey),
     });
   };
 };
 
-export const Put = function (url: string) {
-  return function (
+export const Put = (url: string): MethodDecorator => {
+  return (
     target: object,
-    propertyKey: string,
+    propertyKey: string | symbol,
     _descriptor: PropertyDescriptor,
-  ) {
+  ) => {
     getMetadata().actions.push({
       requestMethod: "PUT",
       route: url,
       target: target.constructor,
-      method: propertyKey,
+      method: String(propertyKey),
     });
   };
 };
 
-export const Param = function (name: string) {
-  return function (target: object, propertyKey: string, paramIndex: number) {
+export const Param = (name: string): ParameterDecorator => {
+  return (
+    target: object,
+    propertyKey: string | symbol | undefined,
+    paramIndex: number,
+  ) => {
     getMetadata().params.push({
       paramType: "param",
       name,
@@ -105,8 +113,12 @@ export const Param = function (name: string) {
   };
 };
 
-export const Body = function (clazz?: any) {
-  return function (target: object, propertyKey: string, paramIndex: number) {
+export const Body = (clazz?: any): ParameterDecorator => {
+  return (
+    target: object,
+    propertyKey: string | symbol | undefined,
+    paramIndex: number,
+  ) => {
     getMetadata().params.push({
       paramType: "body",
       method: propertyKey,
