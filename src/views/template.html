@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Gallimimus</title>
+    </head>
+    <script>
+        window.addEventListener("load", () => {
+            console.log("hello frontend!");
+            const eventList = document.querySelector("#response");
+            const evtSource = new EventSource(
+                "http://localhost:9000/html-defer",
+            );
+
+            evtSource.onopen = function () {
+                console.log("Connection to server opened.");
+            };
+
+            evtSource.onmessage = function (e) {
+                var newElement = document.createElement("li");
+
+                newElement.innerHTML = "message: " + e.data;
+                eventList.appendChild(newElement);
+            };
+
+            evtSource.onerror = function (e) {
+                console.error("EventSource failed.", e);
+                evtSource.close();
+            };
+        });
+    </script>
+    <body>
+        <p>Messages from server:</p>
+        <ul id="response"></ul>
+    </body>
+</html>

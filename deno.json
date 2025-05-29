@@ -1,0 +1,13 @@
+{
+    "tasks": {
+        "dev": "deno run --watch --allow-net -R main.ts"
+    },
+    "imports": {},
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true
+    },
+    "unstable": [
+        "sloppy-imports"
+    ]
+}
