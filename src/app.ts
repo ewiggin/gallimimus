@@ -2,19 +2,29 @@ import { Container } from "./core/container.ts";
 import { getMetadata } from "./core/index.ts";
 
 export class Gallimimus {
-  controllers: Record<string, unknown>[] = [];
   private routes: any[] = [];
 
-  constructor(config?: any) {
+  constructor() {
     console.clear();
     console.log("".padEnd(80, "="));
     console.log(`Building server and register controllers and routes`);
     console.log("".padEnd(80, "="));
-    this.controllers = config.controllers;
     this.registerControllers();
   }
 
+  /**
+   * @deprecated gallimimus skills is run not listen
+   * @param port
+   */
   listen(port = 8080) {
+    this.run(port);
+  }
+
+  /**
+   * Start the server and listen on the specified port.
+   * @param port Default port is 8080
+   */
+  run(port = 8080) {
     try {
       console.log(`===================================================`);
       console.log(`Gallimimus server ready and listen port: ${port}`);
@@ -140,6 +150,9 @@ export class Gallimimus {
   }
 
   private registerControllers() {
+    if (!getMetadata().controllers?.length) {
+      console.log("No controllers found".padEnd(80));
+    }
     // register controllers
     getMetadata().controllers.forEach((controller: any) => {
       const actions = getMetadata().actions.filter((action: any) =>
