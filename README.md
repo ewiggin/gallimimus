@@ -14,13 +14,35 @@ Esta biblioteca/framework proporciona una solución robusta y flexible para el d
 deno add jsr:@booringsoftware/gallimimus
 ```
 
-## Uso básico
+En el archivo deno.json, agreuga o modifica la siguiente línea para simplificar los imports:
+```json
+{
+    "imports": {
+        "@gallimimus": "jsr:@booringsoftware/gallimimus"
+    }
+}
+```
+
+## Routing
+
+### Controladores
+
+```typescript
+import { Controller } from "@gallimimus";
+
+@Controller()
+class HelloWorldController {
+    constructor() {}
+
+    @Get("/")
+    async index() {
+        return "Hello, World!";
+    }
+}
+```
+
+## Arrancar el servidor
 ```typescript
 import { Gallimimus } from "@gallimimus";
-
-new Gallimimus({
-  services: [],
-  controllers: [],
-}).listen(9000);
-
+new Gallimimus().run();
 ```
